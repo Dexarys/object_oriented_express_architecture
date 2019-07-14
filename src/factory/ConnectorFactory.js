@@ -1,15 +1,15 @@
 const BaseFactory = require('./BaseFactory');
 
-class ServiceFactory extends BaseFactory {
-    static initServices(services, connectors, logger) {
+class ConnectorFactory extends BaseFactory {
+    static initConnector(connectors, logger) {
         return new Promise((resolve, reject) => {
             try {
                 resolve();
-            } catch (err) {
+            } catch(err) {
                 reject(err);
             }
         });
     }
 }
 
-module.exports = ServiceFactory;
+module.exports = ConnectorFactory;

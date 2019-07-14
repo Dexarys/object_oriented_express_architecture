@@ -1,0 +1,42 @@
+{% extends '/template/base.twig' %}
+
+{% block body %}
+    {% include '/template/header.twig' %}
+
+    <div class="content">
+        <div class="button-head">
+            <a href="/form">
+                <button class="btn btn-secondary">Créer une commande</button>
+            </a>
+        </div>
+        <h3>Historique</h3>
+        <div class="table-responsive tableau-historique">
+            <table id="table" class="table table-striped">
+                <thead class="thead-light">
+                    <tr>
+                        <th>Date</th>
+                        <th>Client</th>
+                        <th>Ville</th>
+                        <th>Nombre produit</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for row in commandes %}
+                        <tr onclick="document.location='/commande?id={{ row.n_commande }}'">
+                            <td>{{ row.date_enregistrement }}</td>
+                            <td>{{ row.nom_client }}</td>
+                            <td>{{ row.ville_client }}</td>
+                            <td>{{ row.nombre_article }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% include '/component/pagination.twig' with {
+                currentPage: page,
+                paginationPath: "?page=",
+                lastPage: totalPages,
+                showAlwaysFirstAndLast: false
+            } only %}
+        </div>
+    </div>                    
+{% endblock %}

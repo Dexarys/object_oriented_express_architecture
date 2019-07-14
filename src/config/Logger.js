@@ -1,10 +1,27 @@
 const winston = require('winston');
 
-const logger = new winston.Logger();
+var options = {
+    file: {
+        level: 'info',
+        filename: process.env.LOG_FILE,
+        handleExceptions: true,
+        json: true,
+        colorize: false
+    },
+    console: {
+        level: 'error',
+        handleExceptions: true,
+        json: false,
+        colorize: true
+    }
+}
 
-logger.configure({
-    level: 'debug',
-    transports: [new winston.transports.Console()],
+const logger = new winston.Logger({
+    level: 'info',
+    transports: [
+        new winston.transports.File(options.file),
+        new winston.transports.Console(options.console)
+    ]
 });
 
 module.exports = logger;

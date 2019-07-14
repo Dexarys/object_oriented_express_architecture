@@ -1,18 +1,11 @@
-/* eslint-disable no-unused-vars */
 const BaseFactory = require('./BaseFactory');
-const ViewController = require('../controller/ViewController');
-const UserController = require('../controller/UserController');
 
-/**
- * Here we instantiate the controllers
- */
-class ControllerUtil extends BaseFactory {
-    static initController(app, router, services, statusHandler, logger) {
+class ControllerFactory extends BaseFactory {
+    static initController(app, router, services, statusHandler, accessGranted, logger) {
         return new Promise((resolve, reject) => {
             try {
                 app.use('/', router);
-                const viewController = new ViewController(router, null, logger, statusHandler, '');
-                const userController = new UserController(router, services.user, logger, statusHandler, '/api/user');
+                const viewController = new ViewController(router, services, statusHandler, accessGranted, logger);
                 resolve();
             } catch (err) {
                 reject(err);
@@ -21,4 +14,4 @@ class ControllerUtil extends BaseFactory {
     }
 }
 
-module.exports = ControllerUtil;
+module.exports = ControllerFactory;

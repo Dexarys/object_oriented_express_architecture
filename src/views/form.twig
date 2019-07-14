@@ -1,0 +1,138 @@
+{% extends '/template/base.twig' %}
+
+{% block body %}
+    {% include '/template/header.twig' %}
+
+    <div class="content">
+        <form method="get" onsubmit="send(event)">
+            <div class="card">
+                <div class="card-header">
+                    <div class="flex">
+                        <div class="infos-atc">
+                            <label>Date: {{ date }}</label>
+                            <label>ATC: </label>
+                        </div>
+                        <div class="button-close">
+                            <a href="/"><span><i class="far fa-times-circle"></i></span></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body client-infos">
+                    <div class="form-row">
+                        <div class="col-7">
+                            <input 
+                             oninput="blurRequeteClient()"
+                             list="clients"
+                             id="client"
+                             name="client"
+                             class="form-control col-8"
+                             placeholder="Client..."
+                            />
+                            <datalist id="clients">
+                            {% for row in clients %}
+                                <option value="{{ row.nom }}">{{ row.nom }}</option>
+                            {% endfor %}
+                            </datalist>
+                            <small>Selectionner un client</small>
+                        </div>
+                        <div class="col">
+                            <label>Code client: <span id="label-cc"></span></label>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-6">
+                            <label>Adresse: <span id="label-ad"></span></label>
+                        </div>
+                        <div class="col-4">
+                            <label>Code postal: <span id="label-cp"></span></label>
+                        </div>
+                        <div class="col">
+                            <label>Ville: <span id="label-vl"></spanW</label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Commentaire: </label>
+                        <textarea class="form-control" id="commentaire"></textarea>
+                    </div>
+                </div>
+                <div class="card-body commandes">
+                    <h3>Commande:</h3>
+                    <div class="liste-articles">
+                        <div class="add form-row">
+                            <div class="img-article col-2">
+                            </div>
+                            <div class="form-group fiv-article col-3">
+                                <input
+                                 oninput="blurRequeteInfosArticle(event)"
+                                 list="articles"
+                                 name="article"
+                                 class="form-control article"
+                                 placeholder="Article..."
+                                />
+                                <datalist id="articles">
+                                {% for row in articles %}
+                                    <option value="{{ row.code_article }}">{{ row.libelle_article }}</option>
+                                {% endfor %}
+                                </datalist>
+                                <small>Selectionner un article</small>
+                            </div>
+                            <div class="form-group div-conditionnement col-2">
+                                <input 
+                                 type="text"
+                                 name="conditionnement"
+                                 class="form-control conditionnement"
+                                 placeholder="Conditionnement"
+                                 disabled
+                                />
+                                <small>Unité de commande</small>
+                            </div>
+                            <div class="form-group div-quantite col-2">
+                                <input 
+                                 type="number"
+                                 name="quantite"
+                                 class="form-control quantite"
+                                 placeholder="Quantité"
+                                />
+                                <small>Saisir une quantité</small>
+                            </div>
+                            <div class="form-group div-teinte col-2">
+                            </div>
+                            <div class="div-libelle">
+                                <input 
+                                 type="text"
+                                 name="libelle"
+                                 class="libelle"
+                                 hidden
+                                />
+                            </div>
+                            <div class="div-prix">
+                                <input
+                                 type="text"
+                                 name="prix"
+                                 class="prix"
+                                 hidden 
+                                />
+                            </div>
+                            <div class="div-nombre_unite">
+                                <input
+                                 type="text"
+                                 name="nombre_unite"
+                                 class="nombre_unite"
+                                 hidden 
+                                />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="button-form">
+                        <button class="btn btn-secondary" onclick="addArticle()" type="button">Ajout article</button>
+                        <button class="btn btn-primary" type="submit">Enregistrer</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>                    
+{% endblock %}
+
+{% block script %}
+    <script type="text/javascript" src="/js/form.js"></script>
+{% endblock %}

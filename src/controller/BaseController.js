@@ -1,33 +1,17 @@
 class BaseController {
-    constructor(router, service, logger, statusHandler, routePreffix) {
-        this.service = service;
+    constructor(router, services, statusHandler, accessGranted, logger) {
         this.router = router;
-        this.logger = logger;
+        this.services = services;
+        this.bdd = this.services.bdd;
+        this.smtp = this.services.smtp;
         this.statusHandler = statusHandler;
-        this.registerRoutes(routePreffix);
-        this.logger.info(`Instanciating ${this.constructor.name}...`);
+        this.accessGranted = accessGranted;
+        this.logger = logger;
+        this.registerRoutes();
+        this.logger.info(`Instantiating ${this.constructor.name}...`);
     }
 
-    // eslint-disable-next-line no-unused-vars
-    registerRoutes(routePreffix) {
-    }
-
-    saveSession(req, object) {
-        return new Promise((resolve, reject) => {
-            req.session.user = object;
-            req.session.save((err) => {
-                if (err) {
-                    reject(err);
-                } else {
-                    resolve({});
-                }
-            });
-        });
-    }
-
-    checkSession(session) {
-        return session.user !== undefined;
-    }
+    registerRoutes() {}
 
     sendMissingParameters(res) {
         this.statusHandler.sendJson(res, this.statusHandler.internalServerError, { error: 'Missing parameters' });
