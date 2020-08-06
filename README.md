@@ -4,7 +4,7 @@
 
 1. Clone the repository
 
-    `git clone https://github.com/snipzer/object_oriented_express_architecture`
+    `git clone https://github.com/Dexarys/object_oriented_express_architecture`
 
 2. Install the dependencies
 
