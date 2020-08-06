@@ -14,8 +14,8 @@
     "dotenv": "4.0.0",
     "express": "^4.16.4",
     "path": "^0.12.7",
-    "twig": "^1.10.4",
-    "winston": "2.4.0"
+    "twig": "^1.15.1",
+    "winston": "^3.0.0"
   },
   "license": "Beerware",
   "engines": {
